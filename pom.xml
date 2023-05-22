@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>hu.nye.progkor</groupId>
+	<artifactId>book-catalog</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>book-catalog</name>
+	<description>Demo project for Prog. Envs.</description>
+
+	<properties>
+		<java.version>17</java.version>
+
+		<spring-boot.version>3.0.5</spring-boot.version>
+		<webjars.version>5.2.3</webjars.version>
+		<jquery.version>3.6.4</jquery.version>
+		<webjars-locator.version>0.45</webjars-locator.version>
+		<jacoco.version>0.8.7</jacoco.version>
+
+		<coverage.branchLimit>60%</coverage.branchLimit>
+		<coverage.lineLimit>60%</coverage.lineLimit>
+		<coverage.type>BUNDLE</coverage.type>
+
+		<sonar.organization>Havasisovago</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	</properties>
+
+	<dependencies>
+		<!-- Spring dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+
+		<!-- UI dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${webjars.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>${webjars-locator.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${jquery.version}</version>
+		</dependency>
+
+		<!-- Test dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<version>${spring-boot.version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- attached to Maven test phase -->
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>hu\nye\progkor\bookcatalog\data\model\**</exclude>
+						<exclude>hu\nye\progkor\bookcatalog\web\controller\**</exclude>
+						<exclude>hu\nye\progkor\bookcatalog\BookCatalogApplication.class</exclude>
+						<exclude>hu\nye\progkor\bookcatalog\data\repository\**</exclude>
+						<exclude>hu\nye\progkor\bookcatalog\web\configuration\**</exclude>
+						<exclude>*Test</exclude>
+					</excludes>
+					<rules>
+						<rule>
+							<element>${coverage.type}</element>
+							<limits>
+								<limit>
+									<counter>LINE</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>${coverage.lineLimit}</minimum>
+								</limit>
+								<limit>
+									<counter>BRANCH</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>${coverage.branchLimit}</minimum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.2.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>10.9.3</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<consoleOutput>true</consoleOutput>
+					<configLocation>google_checks.xml</configLocation>
+					<violationSeverity>warning</violationSeverity>
+					<violationIgnore>
+						Indentation,
+						CustomImportOrder,
+						DesignForExtension,
+						HiddenField,
+						HideUtilityClassConstructor,
+						JavadocPackage,
+						JavadocVariable
+					</violationIgnore>
+					<!-- Exclude model classes and the entry point class. -->
+					<excludes>
+						**/model/**/*,
+						**/BookCatalogApplication.java
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-google-checks</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/Havasisovago/book-catalog</url>
+		</repository>
+	</distributionManagement>
+
+</project>
