@@ -30,7 +30,7 @@
 		<coverage.lineLimit>60%</coverage.lineLimit>
 		<coverage.type>BUNDLE</coverage.type>
 
-		<sonar.organization>Havasisovago</sonar.organization>
+		<sonar.organization>havasisovago</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
@@ -81,6 +81,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<mainClass>hu.nye.progkor.bookcatalog.BookCatalogApplication</mainClass>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -187,7 +191,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Havasisovago/book-catalog</url>
+			<url>https://maven.pkg.github.com/havasisovago/book-catalog</url>
 		</repository>
 	</distributionManagement>
 

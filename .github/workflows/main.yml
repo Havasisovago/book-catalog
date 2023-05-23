@@ -2,11 +2,11 @@ name: Main workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 env:
   DOCKER_REGISTRY: ghcr.io
-  DOCKER_IMAGE_NAME: ${{ github.repository }}
+  DOCKER_IMAGE_NAME: 'havasisovago/book-catalog'
 
 jobs:
   build:
