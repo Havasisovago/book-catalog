@@ -191,7 +191,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Havasisovago/book-catalog</url>
+			<url>https://maven.pkg.github.com/havasisovago/book-catalog</url>
 		</repository>
 	</distributionManagement>
 
