@@ -30,7 +30,7 @@
 		<coverage.lineLimit>60%</coverage.lineLimit>
 		<coverage.type>BUNDLE</coverage.type>
 
-		<sonar.organization>Havasisovago</sonar.organization>
+		<sonar.organization>havasisovago</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
